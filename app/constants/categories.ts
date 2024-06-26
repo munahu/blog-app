@@ -1,9 +1,9 @@
-export const categories = [
-  "trending",
-  "technology",
-  "food",
-  "design",
-  "travel",
-] as const;
+import { Category } from "@prisma/client";
 
-export type Category = (typeof categories)[number];
+export const categories: Category[] = [
+  "TRENDING",
+  "TECHNOLOGY",
+  "FOOD",
+  "DESIGN",
+  "TRAVEL",
+];

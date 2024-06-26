@@ -1,9 +1,5 @@
-import Nav from "./components/Nav";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className="container m-auto">
-      <Nav />
-    </main>
-  );
+  redirect("/trending");
 }
