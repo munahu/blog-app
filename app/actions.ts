@@ -13,3 +13,12 @@ export const getPosts = async (selectedCategory: Category) => {
     },
   });
 };
+
+export const getPost = async (postId: number) => {
+  return await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+    include: { blog: true, author: true },
+  });
+};

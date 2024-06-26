@@ -1,15 +1,20 @@
-import { Prisma } from "@prisma/client";
+"use client";
+
+import { Category, Prisma } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Feed({
   posts,
+  category,
 }: {
   posts: Prisma.PostGetPayload<{ include: { blog: true; author: true } }>[];
+  category: Category;
 }) {
   return (
-    <ul className="max-w-[600px]">
+    <ul className="grid lg:grid-cols-2">
       {posts.map((post, index) => (
-        <Card key={index} post={post} />
+        <Card key={index} post={post} category={category} />
       ))}
     </ul>
   );
@@ -17,11 +22,17 @@ export default function Feed({
 
 export function Card({
   post,
+  category,
 }: {
   post: Prisma.PostGetPayload<{ include: { blog: true; author: true } }>;
+  category: Category;
 }) {
+  const router = useRouter();
   return (
-    <li className="mb-4 pl-5 sm:px-8 py-5 first:border-t border-b border-[#2F323D] flex justify-between">
+    <li
+      onClick={() => router.push(`/${category.toLowerCase()}/post/${post.id}`)}
+      className="max-w-1/2 pl-5 sm:px-8 py-5 border-t border-gray flex justify-between hover:bg-[#1d1f27] cursor-pointer"
+    >
       <div className="w-2/3 mr-4">
         <div className="flex items-center mb-3 text-sm">
           <Image

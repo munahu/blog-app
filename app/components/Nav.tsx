@@ -9,7 +9,7 @@ export default function Nav({ category }: { category: Category }) {
   const [selectedCategory, setSelectedCategory] = useState<Category>(category);
   return (
     <nav className="pt-14 py-8">
-      <ul className="flex border-y border-[#2F323D] py-4 sm:py-5 overflow-x-scroll no-scrollbar">
+      <ul className="flex border-y border-gray py-4 sm:py-5 overflow-x-scroll no-scrollbar">
         {categories.map((category, index) => (
           <li
             onClick={() => setSelectedCategory(category)}
@@ -18,9 +18,7 @@ export default function Nav({ category }: { category: Category }) {
           >
             <Link
               className={`capitalize border ${
-                category === selectedCategory
-                  ? `border-white`
-                  : `border-[#2F323D]`
+                category === selectedCategory ? `border-white` : `border-gray`
               } px-5 py-1.5 mr-2 font-light rounded-full text-sm cursor-pointer`}
               href={`/${category.toLowerCase()}`}
             >

@@ -3,6 +3,7 @@ import { categories } from "../constants/categories";
 import Nav from "../components/Nav";
 import { getPosts } from "../actions";
 import Feed from "../components/Feed";
+import Layout from "../components/Layout";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -15,10 +16,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (category) {
     return (
-      <main>
-        <Nav category={category} />
-        {posts && <Feed posts={posts} />}
-      </main>
+      <Layout>
+        <>
+          <Nav category={category} />
+          {posts && <Feed posts={posts} category={category} />}
+        </>
+      </Layout>
     );
   } else {
     notFound();
