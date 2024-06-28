@@ -3,6 +3,7 @@
 import { Category, Prisma } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Date from "./Date";
 
 export default function Feed({
   posts,
@@ -27,7 +28,8 @@ export default function Feed({
             key={post.id}
             className="w-full mb-10 sm:flex-shrink-0 cursor-pointer"
           >
-            <div className="relative w-full h-64 lg:mr-6 sm:h-[500px] lg:h-[400px] mb-4 brightness-90">
+            <Date createdAt={post.createdAt} />
+            <div className="mt-2 relative w-full h-64 sm:h-[500px] lg:h-[400px] mb-4 brightness-90">
               <Image
                 src={post.coverImageURL}
                 alt={post.title}
