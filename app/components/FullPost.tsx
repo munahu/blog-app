@@ -4,6 +4,7 @@ import Image from "next/image";
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
 import { Prisma } from "@prisma/client";
+import Date from "./Date";
 
 export default function FullPost({
   postId,
@@ -18,7 +19,8 @@ export default function FullPost({
 }) {
   const router = useRouter();
   const postIndex = posts.findIndex((post) => post.id === postId);
-  const { title, description, content, blog, coverImageURL } = posts[postIndex];
+  const { title, description, content, blog, coverImageURL, createdAt } =
+    posts[postIndex];
 
   return (
     <div className="relative md:border border-gray rounded-tl-2xl rounded-tr-2xl md:mt-8 mx-4">
@@ -103,12 +105,15 @@ export default function FullPost({
       </div>
       <div className="md:px-12 lg:max-w-[728px] lg:m-auto">
         <div className="pb-8 border-b border-[#464a5b]">
-          <p
-            onClick={() => router.push(`/blog/${blog.id}`)}
-            className="uppercase text-xs md:text-sm mb-5 cursor-pointer"
-          >
-            {blog.name}
-          </p>
+          <div className="flex justify-between items-center mb-5">
+            <p
+              onClick={() => router.push(`/blog/${blog.id}`)}
+              className="uppercase text-xs md:text-sm cursor-pointer"
+            >
+              {blog.name}
+            </p>
+            <Date createdAt={createdAt} />
+          </div>
           <p className="text-3xl md:text-4xl font-semibold mb-3">{title}</p>
           <p className="text-lg opacity-70 font-light">{description}</p>
         </div>
