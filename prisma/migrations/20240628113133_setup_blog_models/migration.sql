@@ -36,12 +36,6 @@ CREATE TABLE "User" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Post_authorId_key" ON "Post"("authorId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Post_blogId_key" ON "Post"("blogId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Blog_authorId_key" ON "Blog"("authorId");
 
 -- AddForeignKey

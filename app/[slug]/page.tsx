@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { categories } from "../constants/categories";
 import Nav from "../components/Nav";
-import { getPosts } from "../actions";
+import { getPostsByCategory } from "../actions";
 import Feed from "../components/Feed";
 import Layout from "../components/Layout";
 
@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     (category) => category === slug.toUpperCase()
   );
 
-  const posts = await getPosts(category ?? "TRENDING");
+  const posts = await getPostsByCategory(category ?? "TRENDING");
 
   if (category) {
     return (
