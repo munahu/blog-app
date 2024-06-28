@@ -27,10 +27,10 @@ model Post {
   title String
   description String
   content String[]
-  author   User @relation(fields: [authorId], references: [id])
-  authorId Int @unique
+  author User @relation(fields: [authorId], references: [id])
+  authorId    Int
   blog   Blog @relation(fields: [blogId], references: [id])
-  blogId Int @unique
+  blogId Int
   category Category[]
   createdAt DateTime @default(now())
   coverImageURL String
