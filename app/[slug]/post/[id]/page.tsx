@@ -1,4 +1,4 @@
-import { getPostsByCategory } from "@/app/actions";
+import { getComments, getPostsByCategory } from "@/app/actions";
 import { notFound } from "next/navigation";
 import FullPost from "@/app/components/FullPost";
 import Layout from "@/app/components/Layout";
@@ -13,6 +13,14 @@ export default async function Page({
   const categoryPosts = await getPostsByCategory(
     params.slug.toUpperCase() as Category
   );
+  const comments = await getComments(postId);
+
+  const commentsWithDateConverted = comments.map((comment) => {
+    return {
+      ...comment,
+      createdAt: new Date(comment.createdAt),
+    };
+  });
 
   if (categoryPosts) {
     return (
@@ -21,6 +29,7 @@ export default async function Page({
           postId={postId}
           returnPath={params.slug}
           posts={categoryPosts}
+          comments={commentsWithDateConverted}
         />
       </Layout>
     );

@@ -34,6 +34,16 @@ model Post {
   category Category[]
   createdAt DateTime @default(now())
   coverImageURL String
+  comments  Comment[]
+}
+
+model Comment {
+  id  Int @id@default(autoincrement())
+  createdAt DateTime @default(now())
+  name  String
+  message String
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int
 }
 
 model Blog {
