@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Comment, Prisma } from "@prisma/client";
 import Date from "./Date";
 import Comments from "./Comments";
+import { MutableRefObject, useRef, useState } from "react";
 
 export default function FullPost({
   postId,
@@ -24,6 +25,17 @@ export default function FullPost({
   const postIndex = posts.findIndex((post) => post.id === postId);
   const { title, description, content, blog, coverImageURL, createdAt } =
     posts[postIndex];
+  const commentsRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLeaveCommentClick = () => {
+    commentsRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+    setIsMenuOpen(false);
+  };
 
   return (
     <div>
@@ -55,6 +67,7 @@ export default function FullPost({
             />
           </div>
           <svg
+            onClick={() => setIsMenuOpen(true)}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -69,6 +82,9 @@ export default function FullPost({
             />
           </svg>
         </div>
+        {isMenuOpen && (
+          <Menu handleLeaveCommentClick={handleLeaveCommentClick} />
+        )}
         <div className="hidden absolute left-10 lg:flex flex-col">
           <button
             className="mb-7 group"
@@ -139,7 +155,40 @@ export default function FullPost({
           ))}
         </div>
       </div>
-      <Comments postId={postId} comments={comments} />
+      <div ref={commentsRef}>
+        <Comments postId={postId} comments={comments} />
+      </div>
     </div>
+  );
+}
+
+function Menu({
+  handleLeaveCommentClick,
+}: {
+  handleLeaveCommentClick: () => void;
+}) {
+  return (
+    <ul className="bg-gray absolute right-0 lg:right-10 py-2 px-2 top-16 w-64 h-32 flex justify-center rounded-xl z-50">
+      <li
+        onClick={() => handleLeaveCommentClick()}
+        className="flex h-fit w-full py-3 pl-5 cursor-pointer hover:bg-[#434756] rounded-xl"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-6 mr-3"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+          />
+        </svg>
+        <span>Leave a comment</span>
+      </li>
+    </ul>
   );
 }

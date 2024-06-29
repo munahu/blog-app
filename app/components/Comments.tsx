@@ -62,7 +62,9 @@ export default function Comments({
           ))}
         </ul>
       ) : (
-        <h2 className="">There aren&#39;t any comments on this post yet.</h2>
+        <h2 className="mt-10 lg:mt-0">
+          There aren&#39;t any comments on this post yet.
+        </h2>
       )}
     </div>
   );
