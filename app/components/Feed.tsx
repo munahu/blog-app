@@ -36,6 +36,7 @@ export default function Feed({
                 objectFit="cover"
                 fill
                 className="rounded-md brightness-90"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <p className="text-lg md:text-xl tracking-tight line-clamp-2">
