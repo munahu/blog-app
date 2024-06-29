@@ -12,6 +12,9 @@ export const getPostsByCategory = async (selectedCategory: Category) => {
         has: selectedCategory,
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 };
 
@@ -20,6 +23,9 @@ export const getPostsByBlog = async (blogId: number) => {
     include: { blog: true, author: true },
     where: {
       blogId: blogId,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 };
