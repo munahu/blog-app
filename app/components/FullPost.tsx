@@ -51,6 +51,7 @@ export default function FullPost({
               fill
               alt={blog.name}
               className="rounded-lg cursor-pointer"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
           <svg
