@@ -37,6 +37,11 @@ export default function FullPost({
     setIsMenuOpen(false);
   };
 
+  const handleCopyLinkClick = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setIsMenuOpen(false);
+  };
+
   return (
     <div>
       <div className="relative border-b md:border border-gray rounded-tl-2xl rounded-tr-2xl md:mt-8 mx-4 pb-8">
@@ -83,7 +88,10 @@ export default function FullPost({
           </svg>
         </div>
         {isMenuOpen && (
-          <Menu handleLeaveCommentClick={handleLeaveCommentClick} />
+          <Menu
+            handleLeaveCommentClick={handleLeaveCommentClick}
+            handleCopyLinkClick={handleCopyLinkClick}
+          />
         )}
         <div className="hidden absolute left-10 lg:flex flex-col">
           <button
@@ -164,11 +172,33 @@ export default function FullPost({
 
 function Menu({
   handleLeaveCommentClick,
+  handleCopyLinkClick,
 }: {
   handleLeaveCommentClick: () => void;
+  handleCopyLinkClick: () => void;
 }) {
   return (
-    <ul className="bg-gray absolute right-0 lg:right-10 py-2 px-2 top-16 w-64 h-32 flex justify-center rounded-xl z-50">
+    <ul className="bg-gray absolute right-0 lg:right-10 py-2 px-2 top-16 w-64 h-32 flex flex-col justify-center rounded-xl z-50">
+      <li
+        onClick={() => handleCopyLinkClick()}
+        className="flex h-fit w-full py-3 pl-5 cursor-pointer hover:bg-[#434756] rounded-xl"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-6 mr-3"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+          />
+        </svg>
+        <span>Copy link</span>
+      </li>
       <li
         onClick={() => handleLeaveCommentClick()}
         className="flex h-fit w-full py-3 pl-5 cursor-pointer hover:bg-[#434756] rounded-xl"
