@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Comment, Prisma } from "@prisma/client";
 import Date from "./Date";
 import Comments from "./Comments";
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 
 export default function FullPost({
   postId,
@@ -23,9 +23,11 @@ export default function FullPost({
 }) {
   const router = useRouter();
   const postIndex = posts.findIndex((post) => post.id === postId);
-  const { title, description, content, blog, coverImageURL, createdAt } =
-    posts[postIndex];
+  const { title, description, content, blog, createdAt } = posts[postIndex];
   const commentsRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const menuButtonRef: MutableRefObject<HTMLButtonElement | null> =
+    useRef(null);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLeaveCommentClick = () => {
@@ -41,6 +43,26 @@ export default function FullPost({
     navigator.clipboard.writeText(window.location.href);
     setIsMenuOpen(false);
   };
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    const menuButtonClick = menuButtonRef?.current?.contains(e.target as Node);
+
+    if (!menuButtonClick) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      window.addEventListener("click", handleOutsideClick);
+    } else {
+      window.removeEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isMenuOpen]);
 
   return (
     <div>
@@ -71,21 +93,26 @@ export default function FullPost({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
-          <svg
-            onClick={() => setIsMenuOpen(true)}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-10 absolute right-0 sm:right-8 cursor-pointer"
+          <button
+            ref={menuButtonRef}
+            className="absolute right-0 sm:right-8 cursor-pointer"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-            />
-          </svg>
+            <svg
+              onClick={() => setIsMenuOpen(isMenuOpen ? false : true)}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-10"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+              />
+            </svg>
+          </button>
         </div>
         {isMenuOpen && (
           <Menu
