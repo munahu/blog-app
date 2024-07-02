@@ -26,10 +26,17 @@ export default function Feed({
               )
             }
             key={post.id}
-            className="w-full mb-10 sm:flex-shrink-0 cursor-pointer"
+            className="w-full mb-10 sm:flex-shrink-0 cursor-pointer group"
           >
-            <Date createdAt={post.createdAt} />
-            <div className="mt-2 relative w-full h-64 sm:h-[500px] lg:h-[400px] mb-4 brightness-90">
+            <div className="flex items-center justify-between">
+              {category && (
+                <p className="uppercase opacity-45 text-xs">
+                  {post.author.name}
+                </p>
+              )}
+              <Date createdAt={post.createdAt} />
+            </div>
+            <div className="mt-2 relative w-full h-64 sm:h-[500px] lg:h-[400px] mb-4 brightness-90 group-hover:brightness-100">
               <Image
                 src={post.coverImageURL}
                 alt={post.title}

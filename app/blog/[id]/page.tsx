@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (blogPosts) {
     return (
       <Layout>
-        <>
+        <div className="md:mx-10 md:mb-10">
           <div className="mx-4 mt-24 mb-6 sm:max-w-[600px]">
             <div className="flex items-center">
               <h2 className="text-3xl md:text-4xl font-semibold mb-2 mr-2">
@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <p className="font-light">{blogPosts[0].blog.description}</p>
           </div>
           <Feed posts={blogPosts} />
-        </>
+        </div>
       </Layout>
     );
   } else {
