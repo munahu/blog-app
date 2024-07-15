@@ -15,7 +15,7 @@ export default function Feed({
   const router = useRouter();
   return (
     <div className="mx-4 md:mt-14">
-      <ul className="lg:grid grid-cols-3 gap-x-6">
+      <ul className="sm:grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6">
         {posts.map((post) => (
           <li
             onClick={() =>
@@ -36,7 +36,7 @@ export default function Feed({
               )}
               <Date createdAt={post.createdAt} />
             </div>
-            <div className="mt-2 relative w-full h-64 sm:h-[500px] lg:h-[400px] mb-4 brightness-90 group-hover:brightness-100">
+            <div className="mt-2 relative w-full max-h-96 aspect-square mb-4 brightness-90 group-hover:brightness-100">
               <Image
                 src={post.coverImageURL}
                 alt={post.title}
