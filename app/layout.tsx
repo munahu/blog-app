@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${satoshi.className} bg-[#13151a] text-white`}>
+      <body className={`${satoshi.className} bg-neutral-950 text-white`}>
         {children}
       </body>
     </html>
