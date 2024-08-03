@@ -14,7 +14,7 @@ export default function Feed({
 }) {
   const router = useRouter();
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 lg:gap-x-6 xl:gap-x-7 gap-y-24 sm:gap-y-16 mb-14">
+    <ul className="animate-slideIn grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 lg:gap-x-6 xl:gap-x-7 gap-y-24 sm:gap-y-16 mb-14">
       {posts.map((post) => (
         <li
           onClick={() =>
